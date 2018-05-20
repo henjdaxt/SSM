@@ -1,0 +1,39 @@
+# 查看了REAT包中的shift函数，修改部分代码，实现自用
+
+components <- matrix (nrow=length(region1) ,ncol = 5)
+colnames(components) <- c("行业", "区域增长分量", "结构偏离分量", "竞争力偏离分量", "偏离分量")
+
+speed.r=region2/region1-1
+speed.n=nation2/nation1-1
+speed.n[is.na(speed.n)]=0
+speed.r[is.na(speed.r)]=0
+
+sum.region1 <- sum(region1)
+sum.region2 <- sum(region2)
+sum.nation1 <- sum(nation1)
+sum.nation2 <- sum(nation2)
+
+#按照nation的产业规模，标准化region的产业
+region1.normal=sum.region1*nation1/sum.nation1
+
+components[,2] <- region1.normal*speed.n
+components[,2][is.na(components[,2])]=0
+#components[,2]=components[,2]
+
+
+#components[3] <- sum (region1*(nation2/nation1))-(sum.region1*(sum.nation2/sum.nation1))
+#components[3] <- sum(-(region1.normal- region1)*speed.n)
+components[,3]=-(region1.normal- region1)*speed.n
+components[,3][is.na(components[,3])]=0
+#components[,3]=components[,3]
+
+
+#components[4] <- sum (region1*(region2/region1-nation2/nation1))
+components[,4] =region1*(speed.r-speed.n)
+components[,4][is.na(components[,4])]=0
+components[,5] <- components[,3] + components[,4]
+components=as.matrix(components)
+is.na(components[,2:length(components[1,])])
+class(components[,3])
+signif(components[,2:length(components[1,])],2)
+components[,1] <- as.character( lh$行业 )
