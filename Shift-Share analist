@@ -1,6 +1,11 @@
 # 查看了REAT包中的shift函数，修改部分代码，实现自用
 # 无需加载REAT
 
+region1 <- lh$洛阳市3
+region2 <- lh$洛阳6
+nation1<- lh$河南省3
+nation2 <- lh$河南省6
+
 components <- matrix (nrow=length(region1) ,ncol = 5)
 colnames(components) <- c("行业", "区域增长分量", "结构偏离分量", "竞争力偏离分量", "偏离分量")
 
